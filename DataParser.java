@@ -11,14 +11,14 @@ public class DataParser {
 	 * are stored in a JSONArray.
 	 * 
 	 * Each JSONObject (representing the results of one inspection of a 
-	 * day care center) is then used to create a Model object, which will
+	 * day care center) is then used to create a DayCareProviderModel object, which will
 	 * be used by the other classes in this program.
 	 * 
-	 * These Model objects are stored in an ArrayList.
+	 * These DayCareProviderModel objects are stored in an ArrayList.
 	 * 
 	 */
 	
-	private ArrayList<Model> inspections = new ArrayList<Model>();
+	private ArrayList<DayCareProviderModel> inspections = new ArrayList<DayCareProviderModel>();
 	
 	public JSONArray convertToJSONArray (String data) {
 		/*
@@ -46,11 +46,11 @@ public class DataParser {
 		 */
 	}
 
-	public ArrayList<Model> getInspections() {
+	public ArrayList<DayCareProviderModel> getInspections() {
 		return inspections;
 	}
 
-	public void setInspections(ArrayList<Model> inspections) {
+	public void setInspections(ArrayList<DayCareProviderModel> inspections) {
 		this.inspections = inspections;
 	}
 	
