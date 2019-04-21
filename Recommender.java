@@ -111,10 +111,10 @@ public class Recommender {
 		 */
 
 		
-		for (Model center : centers) {
+		for (DayCareProviderModel center : centers) {
 			int score = 0;
 			score += compareAgainstCityAverage(center.getViolationRatePercent(), 
-					center.violationAvgRatePercent());
+					center.getViolationAvgRatePercent());
 			score += compareAgainstCityAverage(center.getPublicHealthHazardViolationRate(), 
 					center.getAveragePublicHealthHazardViolationRate());
 			score += compareAgainstCityAverage(center.getCriticalViolationRate(), 
