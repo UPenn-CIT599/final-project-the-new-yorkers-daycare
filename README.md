@@ -5,7 +5,7 @@ final-project-the-new-yorkers-daycare created by GitHub Classroom
 Method: A class to access the public childcare center data through its API and download the file in JSON format, and a main method to implement it.
 
 2. Class name: JSONGetter by Steve W
-Method:
+Method: This was an early attempt to learn to deal with JSON data. It won't be used in the final program.
 
 3. Class name: Recommender by Steve W
 Method: assignRatings: assigns a rating to each day care center, compareAgainstCityAverage: helper method for assignRatings, sortByInspectionRate: sorts inspection records in ArrayList from most to least recent
