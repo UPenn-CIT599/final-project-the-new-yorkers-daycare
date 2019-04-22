@@ -25,7 +25,7 @@ Method: main method
 8. Class name: RecommenderTester by Steve Wang
 Method: Junit test that creates a toy ArrayList of DayCareProviderModel objects and uses that to test the assignRatings method of the Recommender class
 
-9. Class name: userInput by Xioya H
+9. Class name: userInput by Xiaoya H
 Method: isValidZipcode - to validate the zipcode that user enters
 is validChildAge - to validate the child age that user enters
 getUserInput - to communicate with user to get the valid inputs (zipcode, child age)
