@@ -1,3 +1,4 @@
+import java.util.Date;
 
 public class DayCareProviderModel {
 	private String centerName;
@@ -26,7 +27,7 @@ public class DayCareProviderModel {
 	private double averagePublicHealthHazardViolationRate;
 	private double criticalViolationRate;
 	private double avgCriticalViolationRate;
-	private String inspectiondate;
+	private Date inspectiondate;
 	private String regulationSummary;
 	private String violationCategory;
 	private String healthCodeSubsection;
@@ -188,10 +189,10 @@ public class DayCareProviderModel {
 	public void setAvgCriticalViolationRate(double avgCriticalViolationRate) {
 		this.avgCriticalViolationRate = avgCriticalViolationRate;
 	}
-	public String getInspectiondate() {
+	public Date getInspectiondate() {
 		return inspectiondate;
 	}
-	public void setInspectiondate(String inspectiondate) {
+	public void setInspectiondate(Date inspectiondate) {
 		this.inspectiondate = inspectiondate;
 	}
 	public String getRegulationSummary() {
