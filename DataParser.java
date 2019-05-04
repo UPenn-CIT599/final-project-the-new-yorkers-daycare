@@ -1,4 +1,5 @@
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.*;
 
@@ -27,7 +28,14 @@ public class DataParser {
 		 * querying the NYC Open Data site) and puts all of
 		 * that data into a JSONArray
 		 */
-		JSONArray dataJSONArray = new JSONArray(data);
+		JSONArray dataJSONArray = null;
+		try {
+			dataJSONArray = new JSONArray(data);
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return dataJSONArray;
 	}
 	
@@ -43,8 +51,62 @@ public class DataParser {
 		 * 
 		 * This Model object is then stored in the inspections ArrayList.
 		 * 
-		 * method to be written
+		 * 
 		 */
+		
+		// iterate through JSONArray
+		for (int i = 0; i < dataJSONArray.length(); i++) {
+			// instantiate new DayCareProviderModel object
+			DayCareProviderModel inspectionRecord = new DayCareProviderModel();
+			
+			// extract data from JSONObject and use that data to
+			// construct inspectionRecord
+			try {
+				JSONObject inspection = dataJSONArray.getJSONObject(i);
+				inspectionRecord.setCenterName((String) inspection.get("centername"));
+				inspectionRecord.setLegalName((String) inspection.get("legalname"));
+				inspectionRecord.setBuilding((String) inspection.get("building"));
+				inspectionRecord.setStreet((String) inspection.get("street"));
+				inspectionRecord.setBorough((String) inspection.get("borough"));
+				inspectionRecord.setZipcode((String) inspection.get("zipcode"));
+				inspectionRecord.setPhone((String) inspection.get("phone"));
+				inspectionRecord.setPermitNumber((String) inspection.get("permitnumber"));
+				inspectionRecord.setPermitExp((String) inspection.get("permitexp"));
+				inspectionRecord.setLegalName((String) inspection.get("legalname"));
+				inspectionRecord.setStatus((String) inspection.get("status"));
+				inspectionRecord.setAgeRange((String) inspection.get("agerange"));
+				inspectionRecord.setMaximumCapacity((Integer) inspection.get("maximumcapacity"));
+				inspectionRecord.setDcID((String) inspection.get("dc_id"));
+				inspectionRecord.setProgramType((String) inspection.get("programtype"));
+				inspectionRecord.setChildCareType((String) inspection.get("childcaretype"));
+				inspectionRecord.setBin((Integer) inspection.get("bin"));
+				inspectionRecord.setUrl((String) inspection.get("url"));
+				inspectionRecord.setDatePermitted((String) inspection.get("datepermitted"));
+				inspectionRecord.setActual((String) inspection.get("actual"));
+				inspectionRecord.setViolationRatePercent((Double) inspection.get("violationratepercent"));
+				inspectionRecord.setViolationAvgRatePercent((Double) inspection.get("violationavgratepercent"));
+				inspectionRecord.setTotalEducationalWorkers((Integer) inspection.get("totaleducationalworkers"));
+				inspectionRecord.setPublicHealthHazardViolationRate((Double) inspection.get("publichealthhazardviolationrate"));
+				inspectionRecord.setAveragePublicHealthHazardViolationRate((Double) inspection.get("averagepublichealthhazardviolationrate"));
+				inspectionRecord.setCriticalViolationRate((Double) inspection.get("criticalviolationrate"));
+				inspectionRecord.setAvgCriticalViolationRate((Double) inspection.get("avgcriticalviolationrate"));
+				inspectionRecord.setInspectiondate((String) inspection.get("inspectiondate"));
+				inspectionRecord.setRegulationSummary((String) inspection.get("regulationsummary"));
+				inspectionRecord.setViolationCategory((String) inspection.get("violationcategory"));
+				inspectionRecord.setHealthCodeSubsection((String) inspection.get("healthcodesubsection"));
+				inspectionRecord.setViolationStatus((String) inspection.get("violationstatus"));
+				inspectionRecord.setInspectionSummaryResult((String) inspection.get("inspectionsummaryresult"));
+
+				
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			// store inspectionRecord in inspections ArrayList
+			inspections.add(inspectionRecord);
+			
+		}
 	}
 
 	public ArrayList<DayCareProviderModel> getInspections() {
