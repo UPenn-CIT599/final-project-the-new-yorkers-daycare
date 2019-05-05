@@ -1,6 +1,7 @@
 import java.util.Date;
+import java.text.SimpleDateFormat;
 
-public class DayCareProviderModel {
+public class DayCareProviderModel implements Comparable<DayCareProviderModel> {
 	private String centerName;
 	private String legalName;
 	private String building;
@@ -225,4 +226,12 @@ public class DayCareProviderModel {
 	public void setInspectionSummaryResult(String inspectionSummaryResult) {
 		this.inspectionSummaryResult = inspectionSummaryResult;
 	}
+	
+	@Override
+	public int compareTo(DayCareProviderModel otherInspection) {
+		// sorts by the most recent inspection date
+		return otherInspection.getInspectiondate().compareTo(getInspectiondate());
+		
+	}
+	
 }
