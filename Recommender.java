@@ -138,6 +138,7 @@ public class Recommender {
 		 * takes an ArrayList of centers (GreenCenters, YellowCenters, RedCenters)
 		 * and sorts them by their inspection date--most recent to least recent
 		 */
+		Collections.sort(centers);
 	}
 
 	public ArrayList<DayCareProviderModel> getGreenCenters() {
