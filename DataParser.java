@@ -1,7 +1,12 @@
 import org.json.JSONArray;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.*;
+
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class DataParser {
 	
@@ -90,12 +95,26 @@ public class DataParser {
 				inspectionRecord.setAveragePublicHealthHazardViolationRate((Double) inspection.get("averagepublichealthhazardviolationrate"));
 				inspectionRecord.setCriticalViolationRate((Double) inspection.get("criticalviolationrate"));
 				inspectionRecord.setAvgCriticalViolationRate((Double) inspection.get("avgcriticalviolationrate"));
-				inspectionRecord.setInspectiondate((String) inspection.get("inspectiondate"));
 				inspectionRecord.setRegulationSummary((String) inspection.get("regulationsummary"));
 				inspectionRecord.setViolationCategory((String) inspection.get("violationcategory"));
 				inspectionRecord.setHealthCodeSubsection((String) inspection.get("healthcodesubsection"));
 				inspectionRecord.setViolationStatus((String) inspection.get("violationstatus"));
 				inspectionRecord.setInspectionSummaryResult((String) inspection.get("inspectionsummaryresult"));
+				
+				// get inspectiondate from JSONObject and create a Date object
+				// set inspectionRecord's inspectiondate member to this Date object
+				String inspectionDateString = (String) inspection.get("inspectiondate");
+				String month = inspectionDateString.substring(5, 7);
+				String day = inspectionDateString.substring(8, 10);
+				String year = inspectionDateString.substring(0, 4);
+				String date = month + "/" + day + "/" + year;
+				try {
+					Date inspectionDate = new SimpleDateFormat("MM/dd/yyyy").parse(date);
+					inspectionRecord.setInspectiondate(inspectionDate);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
 				
 			} catch (JSONException e) {
