@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class userInput {
@@ -27,7 +31,24 @@ public class userInput {
 		 * 2. this is a zipcode in NYC area (check it against a complete list of NYC
 		 * zipcodes)
 		 */
-		return true;
+		File nycZipcodes = new File("nycZipcodes");
+		try {
+			String zip = "";
+			Scanner scanner = new Scanner(nycZipcodes);
+			while(scanner.hasNextLine()) {
+				zip = scanner.nextLine();
+				if(zipcode.equals(zip.substring(0, 5))) {
+					scanner.close();
+					return true; 
+				}
+			}
+			scanner.close();
+			return false; 
+		} catch (FileNotFoundException e) {
+			System.out.println("Invalid file, try again.");
+			return false; 
+		}  
+		
 	}
 
 	boolean isValidChildAge(int childAge) {
@@ -36,7 +57,12 @@ public class userInput {
 		 * between 0-18. TODO: building the below 2 check rules 1. the input is an
 		 * integer 2. the input is an integer between 0-18
 		 */
-		return true;
+		if(childAge>=0 && childAge <18) {
+			return true;
+		}else {
+			return false; 
+		}
+		
 	};
 
 	void getUserInput() {
@@ -55,22 +81,27 @@ public class userInput {
 		// Asking user for the child age input
 		System.out.println("What's the age of your child?");
 		while (true) {
-			int userChildAge = scanner.nextInt();
-			if (isValidChildAge(userChildAge)) {
-				this.childAge = userChildAge;
-				break;
+			try {
+				String userChildAgeSting = scanner.nextLine();
+				int userChildAge = Integer.parseInt(userChildAgeSting);
+				if (isValidChildAge(userChildAge)) {
+					this.childAge = userChildAge;
+					break;
+				}
+			} catch (NumberFormatException e) {
+				// Ask the user to try again using the printout line below. 
 			}
-			System.out.println("This is not a valid child age, please enter a number between 0-18.");
+			System.out.println("This is not a valid child age, please enter a number between 0-18.");		
 		}
 		scanner.close();
 	}
 
 	// Keep a main function here for testing purposes, will consolidate with the
 	// project's main function later
-	public static void main(String[] args) {
-		userInput testing = new userInput();
-		testing.getUserInput();
-		System.out.println(testing.childAge + "\n" + testing.zipcode);
-	}
+//	public static void main(String[] args) {
+//		userInput testing = new userInput();
+//		testing.getUserInput();
+//		System.out.println(testing.childAge + "\n" + testing.zipcode);
+//	}
 
 }
