@@ -10,16 +10,17 @@ public class DayCareProviderModel implements Comparable<DayCareProviderModel> {
 	private String zipcode;
 	private String phone;
 	private String permitNumber;
-	private String permitExp;
+	private Date permitExp;
 	private String status;
 	private String ageRange;
 	private int maximumCapacity;
 	private String dcID;
 	private String programType;
+	private String facilityType;
 	private String childCareType;
 	private int bin;
 	private String url;
-	private String datePermitted;
+	private Date datePermitted;
 	private String actual;
 	private double violationRatePercent;
 	private double violationAvgRatePercent;
@@ -82,10 +83,10 @@ public class DayCareProviderModel implements Comparable<DayCareProviderModel> {
 	public void setPermitNumber(String permitNumber) {
 		this.permitNumber = permitNumber;
 	}
-	public String getPermitExp() {
+	public Date getPermitExp() {
 		return permitExp;
 	}
-	public void setPermitExp(String permitExp) {
+	public void setPermitExp(Date permitExp) {
 		this.permitExp = permitExp;
 	}
 	public String getStatus() {
@@ -118,6 +119,12 @@ public class DayCareProviderModel implements Comparable<DayCareProviderModel> {
 	public void setProgramType(String programType) {
 		this.programType = programType;
 	}
+	public String getFacilityType() {
+		return facilityType;
+	}
+	public void setFacilityType(String facilityType) {
+		this.facilityType = facilityType;
+	}
 	public String getChildCareType() {
 		return childCareType;
 	}
@@ -136,10 +143,10 @@ public class DayCareProviderModel implements Comparable<DayCareProviderModel> {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	public String getDatePermitted() {
+	public Date getDatePermitted() {
 		return datePermitted;
 	}
-	public void setDatePermitted(String datePermitted) {
+	public void setDatePermitted(Date datePermitted) {
 		this.datePermitted = datePermitted;
 	}
 	public String getActual() {
@@ -233,5 +240,4 @@ public class DayCareProviderModel implements Comparable<DayCareProviderModel> {
 		return otherInspection.getInspectiondate().compareTo(getInspectiondate());
 		
 	}
-	
 }

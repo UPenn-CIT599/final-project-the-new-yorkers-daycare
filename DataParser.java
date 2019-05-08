@@ -1,7 +1,8 @@
 import org.json.JSONArray;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.DateFormat;
 import java.util.*;
 
 import java.util.Date;
@@ -27,7 +28,7 @@ public class DataParser {
 	
 	private ArrayList<DayCareProviderModel> inspections = new ArrayList<DayCareProviderModel>();
 	
-	public JSONArray convertToJSONArray (String data) {
+	public JSONArray convertToJSONArray (String data) throws JSONException {
 		/*
 		 * Takes in a string (the result of DataRetriever
 		 * querying the NYC Open Data site) and puts all of
@@ -44,7 +45,7 @@ public class DataParser {
 		return dataJSONArray;
 	}
 	
-	public void createInspectionsArrayList (JSONArray dataJSONArray) {
+	public void createInspectionsArrayList (JSONArray dataJSONArray) throws JSONException {
 		/*
 		 * This method iterates through a JSONArray containing the
 		 * data on the city's inspections of day centers and builds
@@ -58,73 +59,143 @@ public class DataParser {
 		 * 
 		 * 
 		 */
-		
-		// iterate through JSONArray
 		for (int i = 0; i < dataJSONArray.length(); i++) {
-			// instantiate new DayCareProviderModel object
-			DayCareProviderModel inspectionRecord = new DayCareProviderModel();
+			DayCareProviderModel model = new DayCareProviderModel();
+			JSONObject row = dataJSONArray.getJSONObject(i);
 			
-			// extract data from JSONObject and use that data to
-			// construct inspectionRecord
-			try {
-				JSONObject inspection = dataJSONArray.getJSONObject(i);
-				inspectionRecord.setCenterName((String) inspection.get("centername"));
-				inspectionRecord.setLegalName((String) inspection.get("legalname"));
-				inspectionRecord.setBuilding((String) inspection.get("building"));
-				inspectionRecord.setStreet((String) inspection.get("street"));
-				inspectionRecord.setBorough((String) inspection.get("borough"));
-				inspectionRecord.setZipcode((String) inspection.get("zipcode"));
-				inspectionRecord.setPhone((String) inspection.get("phone"));
-				inspectionRecord.setPermitNumber((String) inspection.get("permitnumber"));
-				inspectionRecord.setPermitExp((String) inspection.get("permitexp"));
-				inspectionRecord.setLegalName((String) inspection.get("legalname"));
-				inspectionRecord.setStatus((String) inspection.get("status"));
-				inspectionRecord.setAgeRange((String) inspection.get("agerange"));
-				inspectionRecord.setMaximumCapacity((Integer) inspection.get("maximumcapacity"));
-				inspectionRecord.setDcID((String) inspection.get("dc_id"));
-				inspectionRecord.setProgramType((String) inspection.get("programtype"));
-				inspectionRecord.setChildCareType((String) inspection.get("childcaretype"));
-				inspectionRecord.setBin((Integer) inspection.get("bin"));
-				inspectionRecord.setUrl((String) inspection.get("url"));
-				inspectionRecord.setDatePermitted((String) inspection.get("datepermitted"));
-				inspectionRecord.setActual((String) inspection.get("actual"));
-				inspectionRecord.setViolationRatePercent((Double) inspection.get("violationratepercent"));
-				inspectionRecord.setViolationAvgRatePercent((Double) inspection.get("violationavgratepercent"));
-				inspectionRecord.setTotalEducationalWorkers((Integer) inspection.get("totaleducationalworkers"));
-				inspectionRecord.setPublicHealthHazardViolationRate((Double) inspection.get("publichealthhazardviolationrate"));
-				inspectionRecord.setAveragePublicHealthHazardViolationRate((Double) inspection.get("averagepublichealthhazardviolationrate"));
-				inspectionRecord.setCriticalViolationRate((Double) inspection.get("criticalviolationrate"));
-				inspectionRecord.setAvgCriticalViolationRate((Double) inspection.get("avgcriticalviolationrate"));
-				inspectionRecord.setRegulationSummary((String) inspection.get("regulationsummary"));
-				inspectionRecord.setViolationCategory((String) inspection.get("violationcategory"));
-				inspectionRecord.setHealthCodeSubsection((String) inspection.get("healthcodesubsection"));
-				inspectionRecord.setViolationStatus((String) inspection.get("violationstatus"));
-				inspectionRecord.setInspectionSummaryResult((String) inspection.get("inspectionsummaryresult"));
-				
-				// get inspectiondate from JSONObject and create a Date object
-				// set inspectionRecord's inspectiondate member to this Date object
-				String inspectionDateString = (String) inspection.get("inspectiondate");
-				String month = inspectionDateString.substring(5, 7);
-				String day = inspectionDateString.substring(8, 10);
-				String year = inspectionDateString.substring(0, 4);
+			if (row.has("centername")) {
+				model.setCenterName(row.getString("centername"));
+			}
+			if (row.has("legalname")) {
+				model.setLegalName(row.getString("legalname"));
+			}
+			if (row.has("building")) {
+				model.setBuilding(row.getString("building"));
+			}
+			if (row.has("street")) {
+				model.setStreet(row.getString("street"));
+			}
+			if (row.has("borough")) {
+				model.setBorough(row.getString("borough"));
+			}
+			if (row.has("zipcode")) {
+				model.setZipcode(row.getString("zipcode"));
+			}
+			if (row.has("phone")) {
+				model.setPhone(row.getString("phone"));
+			}
+			if (row.has("permitnumber")) {
+				model.setPermitNumber(row.getString("permitnumber"));
+			}
+			if (row.has("permitexp")) {
+				String d =  row.getString("permitexp");
+				String month = d.substring(5, 7);
+				String day = d.substring(8, 10);
+				String year = d.substring(0, 4);
 				String date = month + "/" + day + "/" + year;
 				try {
-					Date inspectionDate = new SimpleDateFormat("MM/dd/yyyy").parse(date);
-					inspectionRecord.setInspectiondate(inspectionDate);
+					Date dt = new SimpleDateFormat("MM/dd/yyyy").parse(date);
+					model.setPermitExp(dt);
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
-				
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
-			
-			// store inspectionRecord in inspections ArrayList
-			inspections.add(inspectionRecord);
-			
+			if (row.has("status")) {
+				model.setStatus(row.getString("status"));
+			}
+			if (row.has("agerange")) {
+				model.setAgeRange(row.getString("agerange"));
+			}
+			if (row.has("maximumcapacity")) {
+				model.setMaximumCapacity(row.getInt("maximumcapacity"));
+			}
+			if (row.has("dc_id")) {
+				model.setDcID(row.getString("dc_id"));
+			}
+			if (row.has("programtype")) {
+				model.setProgramType(row.getString("programtype"));
+			}
+			if (row.has("facilitytype")) {
+				model.setFacilityType(row.getString("facilitytype"));
+			}
+			if (row.has("childcaretype")) {
+				model.setChildCareType(row.getString("childcaretype"));
+			}
+			if (row.has("bin")) {
+				model.setBin(row.getInt("bin"));
+			}
+			if (row.has("url")) {
+				model.setUrl(row.getString("url"));
+			}
+			if (row.has("datepermitted")) {
+				String d =  row.getString("datepermitted");
+				String month = d.substring(5, 7);
+				String day = d.substring(8, 10);
+				String year = d.substring(0, 4);
+				String date = month + "/" + day + "/" + year;
+				try {
+					Date dt = new SimpleDateFormat("MM/dd/yyyy").parse(date);
+					model.setDatePermitted(dt);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (row.has("actual")) {
+				model.setActual(row.getString("actual"));
+			}
+			if (row.has("violationratepercent")) {
+				model.setViolationRatePercent(row.getDouble("violationratepercent"));
+			}
+			if (row.has("violationavgratepercent")) {
+				model.setViolationAvgRatePercent(row.getDouble("violationavgratepercent"));
+			}
+			if (row.has("totaleducationalworkers")) {
+				model.setTotalEducationalWorkers(row.getInt("totaleducationalworkers"));
+			}
+			if (row.has("averagetotaleducationalworkers")) {
+				model.setAveragePublicHealthHazardViolationRate(row.getDouble("averagetotaleducationalworkers"));
+			}
+			if (row.has("publichealthhazardviolationrate")) {
+				model.setPublicHealthHazardViolationRate(row.getDouble("publichealthhazardviolationrate"));
+			}
+			if (row.has("averagepublichealthhazardiolationrate")) {
+				model.setAveragePublicHealthHazardViolationRate(row.getDouble("averagepublichealthhazardiolationrate"));
+			}
+			if (row.has("criticalviolationrate")) {
+				model.setCriticalViolationRate(row.getDouble("criticalviolationrate"));
+			}
+			if (row.has("inspectiondate")) {
+				String d =  row.getString("inspectiondate");
+				String month = d.substring(5, 7);
+				String day = d.substring(8, 10);
+				String year = d.substring(0, 4);
+				String date = month + "/" + day + "/" + year;
+				try {
+					Date dt = new SimpleDateFormat("MM/dd/yyyy").parse(date);
+					model.setInspectiondate(dt);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (row.has("regulationsummary")) {
+				model.setRegulationSummary(row.getString("regulationsummary"));
+			}
+			if (row.has("violationcatetory")) {
+				model.setViolationCategory(row.getString("violationcatetory"));
+			}
+			if (row.has("healthcodesubsection")) {
+				model.setHealthCodeSubsection(row.getString("healthcodesubsection"));
+			}
+			if (row.has("violationstatus")) {
+				model.setViolationStatus(row.getString("violationstatus"));
+			}
+			if (row.has("inspectionsummaryresult")) {
+				model.setInspectionSummaryResult(row.getString("inspectionsummaryresult"));
+			}
+			inspections.add(model);
 		}
 	}
 
@@ -132,10 +203,9 @@ public class DataParser {
 		return inspections;
 	}
 
+	/*
 	public void setInspections(ArrayList<DayCareProviderModel> inspections) {
 		this.inspections = inspections;
 	}
-	
-	
-
+	*/
 }
