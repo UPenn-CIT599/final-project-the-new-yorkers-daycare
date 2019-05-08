@@ -92,7 +92,7 @@ public class Recommender {
 		}
 	}
 	
-	public void assignRatings(ArrayList<DayCareProviderModel> centers) {
+	public void assignRatings(HashMap<String, DayCareProviderModel> centers) {
 		
 		/*
 		 * This method assigns ratings to each center within a zip code.
@@ -111,34 +111,36 @@ public class Recommender {
 		 */
 
 		
-		for (DayCareProviderModel center : centers) {
+		for (String center : centers.keySet()) {
 			int score = 0;
-			score += compareAgainstCityAverage(center.getViolationRatePercent(), 
-					center.getViolationAvgRatePercent());
-			score += compareAgainstCityAverage(center.getPublicHealthHazardViolationRate(), 
-					center.getAveragePublicHealthHazardViolationRate());
-			score += compareAgainstCityAverage(center.getCriticalViolationRate(), 
-					center.getAvgCriticalViolationRate());
+			score += compareAgainstCityAverage(centers.get(center).getViolationRatePercent(), 
+					centers.get(center).getViolationAvgRatePercent());
+			score += compareAgainstCityAverage(centers.get(center).getPublicHealthHazardViolationRate(), 
+					centers.get(center).getAveragePublicHealthHazardViolationRate());
+			score += compareAgainstCityAverage(centers.get(center).getCriticalViolationRate(), 
+					centers.get(center).getAvgCriticalViolationRate());
 			if (score == 3) {
-				GreenCenters.add(center);
+				GreenCenters.add(centers.get(center));
 			} else {
 				if (score == 2) {
-					YellowCenters.add(center);
+					YellowCenters.add(centers.get(center));
 				} else {
-					RedCenters.add(center);
+					RedCenters.add(centers.get(center));
 				}
 			}
 		}
 
 	}
 	
-	public void sortByInspectionDate(ArrayList<DayCareProviderModel> centers) {
+	public void sortByInspectionDate() {
 		/*
 		 * method to be written
 		 * takes an ArrayList of centers (GreenCenters, YellowCenters, RedCenters)
 		 * and sorts them by their inspection date--most recent to least recent
 		 */
-		Collections.sort(centers);
+		Collections.sort(GreenCenters);
+		Collections.sort(YellowCenters);
+		Collections.sort(RedCenters);
 	}
 
 	public ArrayList<DayCareProviderModel> getGreenCenters() {
