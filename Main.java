@@ -27,6 +27,11 @@ public class Main {
 			System.out.println(d.size());
 			//DayCareGenie genie = new DayCareGenie(d);
 			
+			// Ask for user input on Zipcode and Child age. 
+			userInput user = new userInput(); 
+			user.getUserInput();
+			// And the info can be accessed using user.zipcode and user.childAge. 
+			
 			//ArrayList<DayCareProviderModel> dZip = genie.getDayCaresByZipcode("40404");
 		}
 		catch (Exception ex) {
