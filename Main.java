@@ -13,7 +13,7 @@ public class Main {
 		try {
 			//Get the data from the URL as a string
 			DataRetriever retriever = new DataRetriever();
-			String data = retriever.getJSONDataAsStringFromURL("https://data.cityofnewyork.us/resource/dsg6-ifza.json");
+			String data = retriever.getJSONDataAsStringFromURL("https://data.cityofnewyork.us/resource/dsg6-ifza.json?$limit=100000");
 			//Convert the string of data into an Array of JSON objects
 			DataParser parser = new DataParser();
 			JSONArray jsonArray = parser.convertToJSONArray(data);
@@ -24,6 +24,7 @@ public class Main {
 			for (DayCareProviderModel m : d) {
 				System.out.println("cn: " + m.getCenterName()); //+ " last ins date: " + m.getInspectiondate());
 			}
+			System.out.println(d.size());
 			//DayCareGenie genie = new DayCareGenie(d);
 			
 			//ArrayList<DayCareProviderModel> dZip = genie.getDayCaresByZipcode("40404");
