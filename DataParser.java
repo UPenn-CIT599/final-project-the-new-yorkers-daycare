@@ -166,6 +166,9 @@ public class DataParser {
 			if (row.has("criticalviolationrate")) {
 				model.setCriticalViolationRate(row.getDouble("criticalviolationrate"));
 			}
+			if (row.has("avgcriticalviolationrate")) {
+				model.setAvgCriticalViolationRate(row.getDouble("avgcriticalviolationrate"));
+			}
 			if (row.has("inspectiondate")) {
 				String d =  row.getString("inspectiondate");
 				String month = d.substring(5, 7);
@@ -202,10 +205,5 @@ public class DataParser {
 	public ArrayList<DayCareProviderModel> getInspections() {
 		return inspections;
 	}
-
-	/*
-	public void setInspections(ArrayList<DayCareProviderModel> inspections) {
-		this.inspections = inspections;
-	}
-	*/
+	
 }
