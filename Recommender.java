@@ -81,9 +81,15 @@ public class Recommender {
 		 * public health hazard, or critical) and the citywide average rate for that
 		 * category.
 		 * 
+		 * If a center's violation rate is 0, then it returns 1.
+		 * 
 		 * It returns a 1 if the center's rate is lower than the citywide average, 
 		 * and a 0 if it is not.
 		 */
+		
+		if (violationRate == 0) {
+			return 1;
+		}
 		 
 		if (violationRate < cityAverageRate) {
 			return 1;
@@ -113,6 +119,15 @@ public class Recommender {
 		
 		for (String center : centers.keySet()) {
 			int score = 0;
+			
+			// for debugging
+//			System.out.println("Center: " + centers.get(center).getCenterName());
+//			System.out.println("Avg Violation Rate v City Avg: " + centers.get(center).getViolationRatePercent() + " vs. " + centers.get(center).getViolationAvgRatePercent());
+//			System.out.println("PHH Violation Rate v City Avg: " + centers.get(center).getPublicHealthHazardViolationRate() + " vs. " + centers.get(center).getAveragePublicHealthHazardViolationRate());
+//			System.out.println("Critical Violation Rate v City Avg: " + centers.get(center).getCriticalViolationRate() + " vs. " + centers.get(center).getAvgCriticalViolationRate());
+//			//
+			
+			
 			score += compareAgainstCityAverage(centers.get(center).getViolationRatePercent(), 
 					centers.get(center).getViolationAvgRatePercent());
 			score += compareAgainstCityAverage(centers.get(center).getPublicHealthHazardViolationRate(), 
