@@ -80,21 +80,21 @@ public class DataParser {
 				inspectionRecord.setLegalName((String) inspection.get("legalname"));
 				inspectionRecord.setStatus((String) inspection.get("status"));
 				inspectionRecord.setAgeRange((String) inspection.get("agerange"));
-				inspectionRecord.setMaximumCapacity((Integer) inspection.get("maximumcapacity"));
+				inspectionRecord.setMaximumCapacity(Integer.parseInt((String) inspection.get("maximumcapacity")));
 				inspectionRecord.setDcID((String) inspection.get("dc_id"));
 				inspectionRecord.setProgramType((String) inspection.get("programtype"));
 				inspectionRecord.setChildCareType((String) inspection.get("childcaretype"));
-				inspectionRecord.setBin((Integer) inspection.get("bin"));
+				inspectionRecord.setBin(Integer.parseInt((String) inspection.get("bin")));
 				inspectionRecord.setUrl((String) inspection.get("url"));
 				inspectionRecord.setDatePermitted((String) inspection.get("datepermitted"));
 				inspectionRecord.setActual((String) inspection.get("actual"));
-				inspectionRecord.setViolationRatePercent((Double) inspection.get("violationratepercent"));
-				inspectionRecord.setViolationAvgRatePercent((Double) inspection.get("violationavgratepercent"));
-				inspectionRecord.setTotalEducationalWorkers((Integer) inspection.get("totaleducationalworkers"));
-				inspectionRecord.setPublicHealthHazardViolationRate((Double) inspection.get("publichealthhazardviolationrate"));
-				inspectionRecord.setAveragePublicHealthHazardViolationRate((Double) inspection.get("averagepublichealthhazardviolationrate"));
-				inspectionRecord.setCriticalViolationRate((Double) inspection.get("criticalviolationrate"));
-				inspectionRecord.setAvgCriticalViolationRate((Double) inspection.get("avgcriticalviolationrate"));
+				inspectionRecord.setViolationRatePercent(Double.parseDouble((String) inspection.get("violationratepercent")));
+				inspectionRecord.setViolationAvgRatePercent(Double.parseDouble((String) inspection.get("violationavgratepercent")));
+				inspectionRecord.setTotalEducationalWorkers(Integer.parseInt((String) inspection.get("totaleducationalworkers")));
+				inspectionRecord.setPublicHealthHazardViolationRate(Double.parseDouble((String) inspection.get("publichealthhazardviolationrate")));
+				inspectionRecord.setAveragePublicHealthHazardViolationRate(Double.parseDouble((String) inspection.get("averagepublichealthhazardviolationrate")));
+				inspectionRecord.setCriticalViolationRate(Double.parseDouble((String) inspection.get("criticalviolationrate")));
+				inspectionRecord.setAvgCriticalViolationRate(Double.parseDouble((String) inspection.get("avgcriticalviolationrate")));
 				inspectionRecord.setRegulationSummary((String) inspection.get("regulationsummary"));
 				inspectionRecord.setViolationCategory((String) inspection.get("violationcategory"));
 				inspectionRecord.setHealthCodeSubsection((String) inspection.get("healthcodesubsection"));
@@ -113,13 +113,13 @@ public class DataParser {
 					inspectionRecord.setInspectiondate(inspectionDate);
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 
 				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 			
 			// store inspectionRecord in inspections ArrayList
