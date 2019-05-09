@@ -15,12 +15,19 @@ public class Main {
 	 * 
 	 */
 	
+	public static void greenBoilerplate() {
+		System.out.println("Green-rated day care centers are those centers whose violation rates ");
+		System.out.println("are lower than the citywide average rates in all categories.");
+		System.out.println();
+	}
+	
 	public static void main(String[] args) {
 		
 		String data = null;
 		
 		// get data from NYC website via DataRetriever
 		System.out.println("Downloading data from NYC website. Thank you for your patience.");
+		System.out.println();
 		String url = "https://data.cityofnewyork.us/resource/dsg6-ifza.json?$limit=100000";
 		DataRetriever dr = new DataRetriever();
 		try {
@@ -50,26 +57,30 @@ public class Main {
 //		System.out.println();
 		//for debugging
 		
-		// get zipcode and child care type via userInput
+		// get zipcode and kid's age via userInput
 		userInput ui = new userInput();
 		ui.getUserInput();
 		String zipcode = ui.getZipcode();
-		String childcareType = ui.getChildcareType(); 
-
+		String childCareType = ui.getChildcareType();
+		
 		
 		// retrieve the most recent inspection records for
 		// the day care centers within the user's zipcode via DayCareGenie
 		
 		DayCareGenie genie = new DayCareGenie(d);
-//		ArrayList<DayCareProviderModel> centersByZipcode = genie.getDayCaresByZipcode(zipcode);
-		ArrayList<DayCareProviderModel> centersByZipcode = genie.getDayCaresByZipcode(zipcode, childcareType);
+		ArrayList<DayCareProviderModel> centersByZipcode = genie.getDayCaresByZipcode(zipcode);
+		// winnow the arraylist further so that it only includes centers that
+		// provide the childcare type sought by the user
+		ArrayList<DayCareProviderModel> winnowedList = genie.getDayCaresByChildcareType(childCareType, centersByZipcode);
 		
 //		// for debugging
 //		System.out.println("Number of inspections in this zip code: " + centersByZipcode.size());
 //		System.out.println();
 		// for debugging
 		
-		HashMap<String, DayCareProviderModel> mostRecentInspections = genie.getMostRecentInspections(centersByZipcode);
+		// get most recent inspection records for each center within the specified zip code that
+		// provides the childcare type sought by the user
+		HashMap<String, DayCareProviderModel> mostRecentInspections = genie.getMostRecentInspections(winnowedList);
 		
 		// for debugging
 //		System.out.println("Number of recent inspections in this zip code: " + mostRecentInspections.size());
@@ -85,9 +96,11 @@ public class Main {
 		
 		
 		// display results for user
+		
+		
 		if (green.size() > 0) {
-			System.out.println("Green-rated day care centers are those centers whose violation rates are lower than the citywide average rates in all categories.");
-			System.out.println("These are the green-rated day care centers in your zipcode:");
+			greenBoilerplate();
+			System.out.println("These are the green-rated day care centers that offer " +  childCareType + " in your zipcode:");
 			System.out.println();
 			for (DayCareProviderModel center : green) {
 				System.out.println(center.getCenterName());
@@ -100,14 +113,16 @@ public class Main {
 				System.out.println();
 			}
 		} else {
-			//for debugging
-			System.out.println("There are no green-rated day care centers in your zipcode.");
-			System.out.println();
-			// for debugging
 			
 			if (yellow.size() > 0) {
-				System.out.println("Yellow-rated day care centers have lower violation rates than the citywide average in all but one category.");
-				System.out.println("These are the yellow-rated day care centers in your zipcode:");
+
+				greenBoilerplate();
+				System.out.println("There are no green-rated day care centers that offer " + childCareType + " in your zipcode.");
+				System.out.println();
+				
+				System.out.println("Yellow-rated day care centers have lower violation rates than ");
+				System.out.println("the citywide average in all but one category.");
+				System.out.println("These are the yellow-rated day care centers that offer " + childCareType + " in your zipcode:");
 				System.out.println();
 				for (DayCareProviderModel center : yellow) {
 					System.out.println(center.getCenterName());
@@ -120,7 +135,7 @@ public class Main {
 					System.out.println();
 				}
 			} else {
-				System.out.println("There are no adequate day care centers in your zipcode.");
+				System.out.println("There are no adequate day care centers that offer " + childCareType + " in your zipcode.");
 			}
 		}
 			
@@ -135,6 +150,6 @@ public class Main {
 		
 		
 		
-		ArrayList<DayCareProviderModel> dZip = genie.getDayCaresByZipcode("40404");
+		//ArrayList<DayCareProviderModel> dZip = genie.getDayCaresByZipcode("40404");
 	}
 }
