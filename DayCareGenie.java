@@ -12,37 +12,36 @@ public class DayCareGenie {
 		list = data;
 	}
 	
-	//Method to retrieve inspections of all day care centers in a zipcode and under a specific daycare type 
-	public ArrayList <DayCareProviderModel> getDayCaresByZipcode (String zipcode, String childcareType) {
+	//Method to retrieve inspections of all day care centers in a zipcode
+	public ArrayList <DayCareProviderModel> getDayCaresByZipcode (String zipcode) {
 		//methods to answer question using variable list
 		ArrayList<DayCareProviderModel> result = new ArrayList<DayCareProviderModel>();
 		
 		for(DayCareProviderModel dc : list) {
-			if (dc.getZipcode() != null && dc.getChildCareType() != null) {
-				if (dc.getZipcode().equals(zipcode) && dc.getChildCareType().equals(childcareType)) {
+			if (dc.getZipcode() != null) {
+				if (dc.getZipcode().equals(zipcode)) {
 					result.add(dc);
 				}
 			}
+			
 		}
 		
 		return result;
 	}
-		
+	
 	/**
-	 * gets all day care providers with the specified zipcode and under a 
-	 * specific childcare type whose last inspection date
+	 * gets all day care providers with the specified zipcode whose last inspection date
 	 * is greater than or equal to the specified inspection date.
-	 * @param zipcode - a String representing the 5 digit zipcode to look for.
-	 * @parm childcareType - a String representing the child care type 
+	 * @param zipcode - a String representing the 6 digit zipcode to look for.
 	 * @param inspectionDate - a date representing the desired inspection date
 	 * @return a list of Day Care Providers matching the passed parameters.
 	 */
-	public ArrayList <DayCareProviderModel> getDayCaresByZipcode (String zipcode, String childcareType, Date inspectionDate) {
+	public ArrayList <DayCareProviderModel> getDayCaresByZipcode (String zipcode, Date inspectionDate) {
 		//methods to answer question using variable list
 		ArrayList<DayCareProviderModel> result = new ArrayList<DayCareProviderModel>();
 		
 		for(DayCareProviderModel dc : list) {
-			if (dc.getZipcode().equals(zipcode) == true  && dc.getChildCareType().equals(childcareType) && 
+			if (dc.getZipcode().equals(zipcode) == true  &&
 			    (dc.getInspectiondate().after(inspectionDate) || dc.getInspectiondate().equals(inspectionDate))) {
 				result.add(dc);
 			}
@@ -51,9 +50,34 @@ public class DayCareGenie {
 		return result;
 	}
 	
-	public HashMap<String, DayCareProviderModel> getMostRecentInspections(ArrayList<DayCareProviderModel> inspectionsByZipCode) {
+	public ArrayList<DayCareProviderModel> getDayCaresByChildcareType(String childCareType, 
+			ArrayList<DayCareProviderModel> inspectionsByZipCode) {
+		// this method is intended to be used after getDayCaresByZipcode has 
+		// returned an arraylist of all day care centers in the specified zip code
+		//
+		// this method takes that arraylist and winnows it further
+		// it returns an arraylist of daycare providers for the specified childcare type
+		// all within that zipcode
+		ArrayList<DayCareProviderModel> result = new ArrayList<DayCareProviderModel>();
+		for (DayCareProviderModel dc: inspectionsByZipCode) {
+			if (dc.getChildCareType() != null) {
+				if (dc.getChildCareType().equals(childCareType)) {
+					result.add(dc);
+				}
+			}
+		}
+		return result;
+	}
+	
+	public HashMap<String, DayCareProviderModel> getMostRecentInspections(ArrayList<DayCareProviderModel> winnowedList) {
 		/**
-		 * This method takes in an arraylist of all the inspections for a zip code.
+		 * This method takes in an arraylist of all the inspections for a zip code
+		 * for day care centers of a specified type. Essentially, this method should
+		 * be used only after:
+		 * 1. getDayCaresByZipcode has returned an arraylist of inspections for centers by zip code
+		 * 2. getDayCaresByChildcareType has winnowed that arraylist to only centers within
+		 * that zip code for a specified childcare type
+		 * 
 		 * It iterates through those inspections and extracts the most recent inspection for
 		 * each day care center.
 		 * Each center and its most recent inspection are stored as key-values in a 
@@ -65,7 +89,7 @@ public class DayCareGenie {
 
 		
 		// iterate through inspections for a zipcode
-		for (DayCareProviderModel inspection : inspectionsByZipCode) {
+		for (DayCareProviderModel inspection : winnowedList) {
 			// determine if a center is in the hashmap
 			// if so, determine if this inspection record is more recent than 
 			// the one stored in the hashmap; if so, replace the value in the hashmap
