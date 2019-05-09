@@ -14,14 +14,32 @@ public class userInput {
 	 */
 
 	private String zipcode;
-	private int childAge;
+	private int childcareTypeNum; 
+	private String childcareType; 
 
 	public String getZipcode() {
 		return zipcode;
 	}
-
-	public int getChildAge() {
-		return childAge;
+	
+	public int getChildcareTypeNum() {
+		return childcareTypeNum; 
+	}
+	
+	public String getChildcareType() {
+		return childcareType; 
+	}
+	
+	 String transChildcareType (int childcareTypeNum) {
+		if(childcareTypeNum == 1) {
+			childcareType =  "Child Care - Pre School"; 
+		}if(childcareTypeNum == 2) {
+			childcareType = "Child Care - Infants/Toddlers"; 
+		}if(childcareTypeNum == 3) {
+			childcareType = "School Based Child Care"; 
+		}if(childcareTypeNum == 4) {
+			childcareType = "Camp"; 
+		}
+		return childcareType; 
 	}
 
 	boolean isValidZipcode(String zipcode) {
@@ -50,20 +68,17 @@ public class userInput {
 		}  
 		
 	}
-
-	boolean isValidChildAge(int childAge) {
+	
+	boolean isValidChildcareType (int childcareTypeNum) {
 		/*
-		 * This function checks whether the user-inputed child age is a valid child age
-		 * between 0-18. TODO: building the below 2 check rules 1. the input is an
-		 * integer 2. the input is an integer between 0-18
+		 * This function checks whether the childcare type the user selected is valid between 1-4. 
 		 */
-		if(childAge>=0 && childAge <18) {
-			return true;
+		if(childcareTypeNum>=1 && childcareTypeNum<=4) {
+			return true; 
 		}else {
 			return false; 
 		}
-		
-	};
+	}
 
 	void getUserInput() {
 		// Asking user for the zipcode input
@@ -78,30 +93,25 @@ public class userInput {
 			}
 			System.out.println("This is not an valid zipcode in NYC, please enter again.");
 		}
-		// Asking user for the child age input
-		System.out.println("What's the age of your child?");
-		while (true) {
+		// Ask the user for Child Care Type 
+		System.out.println("Which type of child care are you interested in? Please select from below 4 types:");
+		System.out.println("1. Child Care - Pre School"+"\n"+"2. Child Care - Infants/Toddlers"+"\n"
+		+"3. School Based Child Care"+"\n"+"4. Camp");
+		while(true) {
 			try {
-				String userChildAgeSting = scanner.nextLine();
-				int userChildAge = Integer.parseInt(userChildAgeSting);
-				if (isValidChildAge(userChildAge)) {
-					this.childAge = userChildAge;
-					break;
+				String userChildcareType = scanner.nextLine();
+				int userChildcareTypeNum = Integer.parseInt(userChildcareType); 
+				
+				if (isValidChildcareType(userChildcareTypeNum)) {
+					this.childcareTypeNum = userChildcareTypeNum; 
+					this.childcareType = transChildcareType(userChildcareTypeNum); 
+					break; 
 				}
-			} catch (NumberFormatException e) {
-				// Ask the user to try again using the printout line below. 
+			}catch(NumberFormatException e) {
+				// Ask the user to try again using the printout line below. 				
 			}
-			System.out.println("This is not a valid child age, please enter a number between 0-18.");		
+			System.out.println("This is not a valid Child Care Type number, please enter a number between 1-4.");					
 		}
 		scanner.close();
 	}
-
-	// Keep a main function here for testing purposes, will consolidate with the
-	// project's main function later
-//	public static void main(String[] args) {
-//		userInput testing = new userInput();
-//		testing.getUserInput();
-//		System.out.println(testing.childAge + "\n" + testing.zipcode);
-//	}
-
 }
