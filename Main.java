@@ -50,17 +50,19 @@ public class Main {
 //		System.out.println();
 		//for debugging
 		
-		// get zipcode and kid's age via userInput
+		// get zipcode and child care type via userInput
 		userInput ui = new userInput();
 		ui.getUserInput();
 		String zipcode = ui.getZipcode();
-		
+		String childcareType = ui.getChildcareType(); 
+
 		
 		// retrieve the most recent inspection records for
 		// the day care centers within the user's zipcode via DayCareGenie
 		
 		DayCareGenie genie = new DayCareGenie(d);
-		ArrayList<DayCareProviderModel> centersByZipcode = genie.getDayCaresByZipcode(zipcode);
+//		ArrayList<DayCareProviderModel> centersByZipcode = genie.getDayCaresByZipcode(zipcode);
+		ArrayList<DayCareProviderModel> centersByZipcode = genie.getDayCaresByZipcode(zipcode, childcareType);
 		
 //		// for debugging
 //		System.out.println("Number of inspections in this zip code: " + centersByZipcode.size());
