@@ -12,36 +12,37 @@ public class DayCareGenie {
 		list = data;
 	}
 	
-	//Method to retrieve inspections of all day care centers in a zipcode
-	public ArrayList <DayCareProviderModel> getDayCaresByZipcode (String zipcode) {
+	//Method to retrieve inspections of all day care centers in a zipcode and under a specific daycare type 
+	public ArrayList <DayCareProviderModel> getDayCaresByZipcode (String zipcode, String childcareType) {
 		//methods to answer question using variable list
 		ArrayList<DayCareProviderModel> result = new ArrayList<DayCareProviderModel>();
 		
 		for(DayCareProviderModel dc : list) {
-			if (dc.getZipcode() != null) {
-				if (dc.getZipcode().equals(zipcode)) {
+			if (dc.getZipcode() != null && dc.getChildCareType() != null) {
+				if (dc.getZipcode().equals(zipcode) && dc.getChildCareType().equals(childcareType)) {
 					result.add(dc);
 				}
 			}
-			
 		}
 		
 		return result;
 	}
-	
+		
 	/**
-	 * gets all day care providers with the specified zipcode whose last inspection date
+	 * gets all day care providers with the specified zipcode and under a 
+	 * specific childcare type whose last inspection date
 	 * is greater than or equal to the specified inspection date.
-	 * @param zipcode - a String representing the 6 digit zipcode to look for.
+	 * @param zipcode - a String representing the 5 digit zipcode to look for.
+	 * @parm childcareType - a String representing the child care type 
 	 * @param inspectionDate - a date representing the desired inspection date
 	 * @return a list of Day Care Providers matching the passed parameters.
 	 */
-	public ArrayList <DayCareProviderModel> getDayCaresByZipcode (String zipcode, Date inspectionDate) {
+	public ArrayList <DayCareProviderModel> getDayCaresByZipcode (String zipcode, String childcareType, Date inspectionDate) {
 		//methods to answer question using variable list
 		ArrayList<DayCareProviderModel> result = new ArrayList<DayCareProviderModel>();
 		
 		for(DayCareProviderModel dc : list) {
-			if (dc.getZipcode().equals(zipcode) == true  &&
+			if (dc.getZipcode().equals(zipcode) == true  && dc.getChildCareType().equals(childcareType) && 
 			    (dc.getInspectiondate().after(inspectionDate) || dc.getInspectiondate().equals(inspectionDate))) {
 				result.add(dc);
 			}
