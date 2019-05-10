@@ -81,36 +81,45 @@ public class userInput {
 	}
 
 	void getUserInput() {
-		// Asking user for the zipcode input
 		Scanner scanner = new Scanner(System.in);
-		System.out.println("In which area are you looking for a childcare? Please enter a valid zipcode in NYC.");
-
 		while (true) {
-			String zipcode = scanner.nextLine();
-			if (isValidZipcode(zipcode)) {
-				this.zipcode = zipcode;
-				break;
-			}
-			System.out.println("This is not an valid zipcode in NYC, please enter again.");
-		}
-		// Ask the user for Child Care Type 
-		System.out.println("Which type of child care are you interested in? Please select from below 4 types:");
-		System.out.println("1. Child Care - Pre School"+"\n"+"2. Child Care - Infants/Toddlers"+"\n"
-		+"3. School Based Child Care"+"\n"+"4. Camp");
-		while(true) {
-			try {
-				String userChildcareType = scanner.nextLine();
-				int userChildcareTypeNum = Integer.parseInt(userChildcareType); 
-				
-				if (isValidChildcareType(userChildcareTypeNum)) {
-					this.childcareTypeNum = userChildcareTypeNum; 
-					this.childcareType = transChildcareType(userChildcareTypeNum); 
-					break; 
+			// Asking user for the zipcode input
+			System.out.println("In which area are you looking for a childcare? Please enter a valid zipcode in NYC.");
+	
+			while (true) {
+				String zipcode = scanner.nextLine();
+				if (isValidZipcode(zipcode)) {
+					this.zipcode = zipcode;
+					break;
 				}
-			}catch(NumberFormatException e) {
-				// Ask the user to try again using the printout line below. 				
+				System.out.println("This is not an valid zipcode in NYC, please enter again.");
 			}
-			System.out.println("This is not a valid Child Care Type number, please enter a number between 1-4.");					
+			// Ask the user for Child Care Type 
+			System.out.println("Which type of child care are you interested in? Please select from below 4 types:");
+			System.out.println("1. Child Care - Pre School"+"\n"+"2. Child Care - Infants/Toddlers"+"\n"
+			+"3. School Based Child Care"+"\n"+"4. Camp");
+			while(true) {
+				try {
+					String userChildcareType = scanner.nextLine();
+					int userChildcareTypeNum = Integer.parseInt(userChildcareType); 
+					
+					if (isValidChildcareType(userChildcareTypeNum)) {
+						this.childcareTypeNum = userChildcareTypeNum; 
+						this.childcareType = transChildcareType(userChildcareTypeNum); 
+						break; 
+					}
+				}catch(NumberFormatException e) {
+					// Ask the user to try again using the printout line below. 				
+				}
+				System.out.println("This is not a valid Child Care Type number, please enter a number between 1-4.");					
+			}
+			
+			System.out.println("Want to make another seach? Please enter Y for yes, any other word(s) for no.");
+			if(scanner.nextLine().equals("Y")) {
+				
+			} else {
+				break; 
+			}
 		}
 		scanner.close();
 	}
