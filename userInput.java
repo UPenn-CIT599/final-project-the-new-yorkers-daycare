@@ -29,7 +29,7 @@ public class userInput {
 		return childcareType; 
 	}
 	
-	 String transChildcareType (int childcareTypeNum) {
+	 public String transChildcareType (int childcareTypeNum) {
 		if(childcareTypeNum == 1) {
 			childcareType =  "Child Care - Pre School"; 
 		}if(childcareTypeNum == 2) {
@@ -42,7 +42,7 @@ public class userInput {
 		return childcareType; 
 	}
 
-	boolean isValidZipcode(String zipcode) {
+	public boolean isValidZipcode(String zipcode) {
 		/*
 		 * This function checks whether the user-inputed zipcode is a valid zipcode
 		 * TODO: building the following 2 check rules 1. the string contains 5 numbers
@@ -69,7 +69,7 @@ public class userInput {
 		
 	}
 	
-	boolean isValidChildcareType (int childcareTypeNum) {
+	public boolean isValidChildcareType (int childcareTypeNum) {
 		/*
 		 * This function checks whether the childcare type the user selected is valid between 1-4. 
 		 */
@@ -80,47 +80,62 @@ public class userInput {
 		}
 	}
 
-	void getUserInput() {
+	public void getUserInput() {
+		// Asking user for the zipcode input
 		Scanner scanner = new Scanner(System.in);
+		System.out.println("In which area are you looking for a childcare? Please enter a valid zipcode in NYC.");
+
 		while (true) {
-			// Asking user for the zipcode input
-			System.out.println("In which area are you looking for a childcare? Please enter a valid zipcode in NYC.");
-	
-			while (true) {
-				String zipcode = scanner.nextLine();
-				if (isValidZipcode(zipcode)) {
-					this.zipcode = zipcode;
-					break;
-				}
-				System.out.println("This is not an valid zipcode in NYC, please enter again.");
+			String zipcode = scanner.nextLine();
+			if (isValidZipcode(zipcode)) {
+				this.zipcode = zipcode;
+				break;
 			}
-			// Ask the user for Child Care Type 
-			System.out.println("Which type of child care are you interested in? Please select from below 4 types:");
-			System.out.println("1. Child Care - Pre School"+"\n"+"2. Child Care - Infants/Toddlers"+"\n"
-			+"3. School Based Child Care"+"\n"+"4. Camp");
-			while(true) {
-				try {
-					String userChildcareType = scanner.nextLine();
-					int userChildcareTypeNum = Integer.parseInt(userChildcareType); 
-					
-					if (isValidChildcareType(userChildcareTypeNum)) {
-						this.childcareTypeNum = userChildcareTypeNum; 
-						this.childcareType = transChildcareType(userChildcareTypeNum); 
-						break; 
-					}
-				}catch(NumberFormatException e) {
-					// Ask the user to try again using the printout line below. 				
-				}
-				System.out.println("This is not a valid Child Care Type number, please enter a number between 1-4.");					
-			}
-			
-			System.out.println("Want to make another seach? Please enter Y for yes, any other word(s) for no.");
-			if(scanner.nextLine().equals("Y")) {
+			System.out.println("This is not an valid zipcode in NYC, please enter again.");
+		}
+		// Ask the user for Child Care Type 
+		System.out.println();
+		System.out.println("Which type of child care are you interested in? Please select from below 4 types:");
+		System.out.println("1. Child Care - Pre School"+"\n"+"2. Child Care - Infants/Toddlers"+"\n"
+		+"3. School Based Child Care"+"\n"+"4. Camp");
+		while(true) {
+			try {
+				String userChildcareType = scanner.nextLine();
+				int userChildcareTypeNum = Integer.parseInt(userChildcareType); 
 				
+				if (isValidChildcareType(userChildcareTypeNum)) {
+					this.childcareTypeNum = userChildcareTypeNum; 
+					this.childcareType = transChildcareType(userChildcareTypeNum); 
+					break; 
+				}
+			}catch(NumberFormatException e) {
+				// Ask the user to try again using the printout line below. 				
+			}
+			System.out.println("This is not a valid Child Care Type number, please enter a number between 1-4.");					
+		}
+		
+	}
+	
+	public boolean continueSearch() {
+		// ask the user if he or she would like to search again
+		Scanner userContinue = new Scanner(System.in);
+		System.out.println("Would you like to search again? Please select from the options below.");
+		System.out.println("1. Yes" + "\n" + "2. No");
+		while(true) {
+			String userChoice = userContinue.nextLine();
+			int userChoiceNum = Integer.parseInt(userChoice);
+			if (userChoiceNum == 1) {
+				return true;
 			} else {
-				break; 
+				if (userChoiceNum == 2) {
+					return false;
+				} else {
+					System.out.println("Please enter a valid choice.");
+				}
+				
 			}
 		}
-		scanner.close();
 	}
+
+	
 }
