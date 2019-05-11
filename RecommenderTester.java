@@ -58,18 +58,18 @@ class RecommenderTester {
 		center5.setCriticalViolationRate(0.55);
 		center6.setCriticalViolationRate(0.18);
 		
-		ArrayList<DayCareProviderModel> centers = new ArrayList<DayCareProviderModel>();
-		centers.add(center1);
-		centers.add(center2);
-		centers.add(center3);
-		centers.add(center4);
-		centers.add(center5);
-		centers.add(center6);
+		HashMap<String, DayCareProviderModel> centers = new HashMap<String, DayCareProviderModel>();
+		centers.put("center1", center1);
+		centers.put("center2", center2);
+		centers.put("center3", center3);
+		centers.put("center4", center4);
+		centers.put("center5", center5);
+		centers.put("center6", center6);
 		
-		for (DayCareProviderModel c : centers) {
-			c.setViolationAvgRatePercent(0.37);
-			c.setAveragePublicHealthHazardViolationRate(0.23);
-			c.setAvgCriticalViolationRate(0.19);
+		for (String c : centers.keySet()) {
+			centers.get(c).setViolationAvgRatePercent(0.37);
+			centers.get(c).setAveragePublicHealthHazardViolationRate(0.23);
+			centers.get(c).setAvgCriticalViolationRate(0.19);
 		}
 		
 		// instantiate Recommender object
