@@ -5,33 +5,41 @@ By: Anna Jones, Steve Wang, Xiaoya Huang
 This project helps New York families find the best child care providers (within a specified zip code and for a specified child care type--e.g., Preschool, Infant/Toddler, School-based programs, or camps). We use New York City’s Department of Health and Mental Hygiene’s database of day care center inspection records to determine which centers have the lowest rates of violations. We believe this will greatly reduce the time spent in researching for a suitable service based on verbal recommendations or Google search that does not sort the options via area more efficiently. 
 
 How to Run the Program
+
 Download the program files (although the JUnit tests are not necessary) and the nycZipcodes file.
 Then run the "Main.java" file (i.e., Main class).
 The program will then ask you for your zipcode and type of child care sought and return a list of recommended choices.
 
 Overview of Program
+
 Retreive Data
+
 The dataset we used is New York City’s Department of Health and Mental Hygiene’s database of day care center inspection records, which is available through NYC’s Open Data website (https://opendata.cityofnewyork.us/). This data is retrieved by the DataRetriever class, which returns a string. When retrieving the data, we have to specify the number of data/set limit parameter we wish to be retrieved, otherwise, it fetches only 1000.
 
 Process Data
+
 In the next step, the DataParser class processes the string outputted by DataRetriever into a JSONArray. DataParser then loops through the JSONArray and for each JSONArray, extracts the attributes of each inspection record to create a DayCareProviderModel object, which is then stored in an ArrayList. We account for missing data by using an ‘if’ condition to store a DayCareProviderModel object in the ArrayList, only if it includes all of the necessary data.
 
 Get User Input
 	Next, we ask the user to enter his or her zip code (a proxy for the neighborhood where they are search for day care options). We then ask the user to provide the type of day care sought--Preschool, Infant/Toddlers, School-based programs, or camp.
 
 Build Recommendation Engine
+
 	The bulk of the work here is done by two classes.
 	First, DayCareGenie extracts the most recent inspection records for day care centers within the user’s zipcode that provide the type of day care sought. This data is stored in a HashMap that maps each day care center name to its most recent inspection record.
 	Next, Recommender users this HashMap to partition all of the centers with the desired zip code and child care type into three categories (each stored in an ArrayList): Green Centers, Yellow Centers, and Red Centers.
 In partitioning the centers, Recommender focuses on three fields:
 
 ViolationRatePercent: the percent of initial inspections of that center that resulted in at least one public health hazard or critical violation
+
 PublicHealthHazardViolationRate: the percent of Public Health Hazard violations among all violations issued at initial inspections of that center during the past 3 years. Public Health Hazard Violations are the most serious violations and must be remedied within 24 hours of a citation.
+
 CriticalViolationRate: the percent of Critical violations among all violations issued at initial inspections of that center during the past 3 years. Critical violations must be remedied within 2 weeks. Examples of Critical violations include fire escape drill logs that are not up to date or bathrooms that are not properly maintained.
 
 For each center, Recommender compares each center’s violation rate in each category to the citywide average violation rate that category. If a center’s violation rates are lower than the citywide average in all three categories, it earns a Green rating; if a center’s violation rates are lower than the citywide average in two categories, it earns a Yellow rating; otherwise, it earns a Red rating.
 
 Provide recommendation based on user requirements
+
 	Next, we provide our recommendations to the user.
 	If there are any Green centers for that zip code and that type of child care, we present the names, address, phone number, and website for those centers.
 	If there are no Green centers for that zip code and that type of child care, we present the names, address, phone number, and website of the Yellow centers.
@@ -39,6 +47,7 @@ Provide recommendation based on user requirements
 	We then present the user with the option to search again.
 
 Program Classes
+
 1. Class name: DataRetriever by Xiaoya H
 Method: A class to access the public childcare center data through its API and download the file in JSON format; returns a string which is used by DataParser to create an ArrayList of DayCareProviderModel objects
 
