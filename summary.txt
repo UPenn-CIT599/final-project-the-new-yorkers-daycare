@@ -1,0 +1,33 @@
+﻿The New Yorker’s daycare finder
+By: Anna Jones, Steven Wang, Xiaoya Huang
+
+
+
+
+Description
+
+This project helps New York families find the best child care providers within a specified zip code and for a specified child care type--e.g., Preschool, Infant/Toddler, School-based programs, or camps. 
+
+
+We used New York City’s Department of Health and Mental Hygiene’s database of day care center inspection records to determine which centers had lower rates of violations compared to the citywide average. These comparisons are used to present a list of day care centers (within the specified zip code and for the specified child care type) that have superior (i.e., lower) rates of violations. When a zip code lacks any day care centers of the specified type with violation rates that are better than the citywide average, we advise the user that there are no acceptable day care choices within that zip code.
+
+
+New York City collects an immense amount of data, which is made available on its Open Data website (https://opendata.cityofnewyork.us/). While New York should be commended to collecting this data and making it available to the public, it’s also quite difficult for someone without coding and data analysis skills to make any practical use of it. We hope our project will enable parents to find more day care options and make better decisions.
+
+
+Breakdown of Tasks
+(Note that this is a only a very high-level view of who did what. All of us contributed significant code to classes that weren’t “ours”.) 
+
+1. DataRetriever class: Xiaoya Huang
+2. DataParser class: Steven Wang
+3. DayCareProviderModel class: Anna Jones
+4. UserInput class: Xiaoya Huang
+5. DayCareGenie class: Anna Jones
+6. Recommender class: Steven Wang
+7. Main class: Steven Wang
+8. JUnit tests: Steven Wang
+
+
+Link to Github Repository
+
+https://github.com/UPenn-CIT599/final-project-the-new-yorkers-daycare
