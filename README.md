@@ -10,6 +10,8 @@ Download the program files (although the JUnit tests are not necessary) and the 
 Then run the "Main.java" file (i.e., Main class).
 The program will then ask you for your zipcode and type of child care sought and return a list of recommended choices.
 
+Note that it may take between 30 seconds to a minute for the program to download the latest inspections data from New York City's Open Data site.
+
 Overview of Program
 
 Retreive Data
