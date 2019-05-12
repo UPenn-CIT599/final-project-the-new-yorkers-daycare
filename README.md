@@ -56,3 +56,6 @@ JUnit test for the getMostRecentInspections method of the DayCareGenie class.
 
 7. Class name: ValidZipCodeTester by Steve Wang
 JUnit test for the isValidZipCode method of the userInput class.
+
+8. Class name: DataParserTester by Steve Wang
+JUnit test for the DataParser class.
