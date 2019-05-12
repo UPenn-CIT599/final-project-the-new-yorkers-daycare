@@ -25,9 +25,12 @@ Get User Input
 
 Build Recommendation Engine
 
-	The bulk of the work here is done by two classes.
-	First, DayCareGenie extracts the most recent inspection records for day care centers within the user’s zipcode that provide the type of day care sought. This data is stored in a HashMap that maps each day care center name to its most recent inspection record.
-	Next, Recommender users this HashMap to partition all of the centers with the desired zip code and child care type into three categories (each stored in an ArrayList): Green Centers, Yellow Centers, and Red Centers.
+The bulk of the work here is done by two classes.
+
+First, DayCareGenie extracts the most recent inspection records for day care centers within the user’s zipcode that provide the type of day care sought. This data is stored in a HashMap that maps each day care center name to its most recent inspection record.
+
+Next, Recommender users this HashMap to partition all of the centers with the desired zip code and child care type into three categories (each stored in an ArrayList): Green Centers, Yellow Centers, and Red Centers.
+	
 In partitioning the centers, Recommender focuses on three fields:
 
 ViolationRatePercent: the percent of initial inspections of that center that resulted in at least one public health hazard or critical violation
@@ -40,11 +43,15 @@ For each center, Recommender compares each center’s violation rate in each cat
 
 Provide recommendation based on user requirements
 
-	Next, we provide our recommendations to the user.
-	If there are any Green centers for that zip code and that type of child care, we present the names, address, phone number, and website for those centers.
-	If there are no Green centers for that zip code and that type of child care, we present the names, address, phone number, and website of the Yellow centers.
-	If there are no Green or Yellow centers, we advise the user that there are no adequate child care centers within that zip code that offer the desired type of child care.
-	We then present the user with the option to search again.
+Next, we provide our recommendations to the user.
+
+If there are any Green centers for that zip code and that type of child care, we present the names, address, phone number, and website for those centers.
+
+If there are no Green centers for that zip code and that type of child care, we present the names, address, phone number, and website of the Yellow centers.
+
+If there are no Green or Yellow centers, we advise the user that there are no adequate child care centers within that zip code that offer the desired type of child care.
+
+We then present the user with the option to search again.
 
 Program Classes
 
