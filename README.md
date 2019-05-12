@@ -58,4 +58,12 @@ JUnit test for the getMostRecentInspections method of the DayCareGenie class.
 JUnit test for the isValidZipCode method of the userInput class.
 
 8. Class name: DataParserTester by Steve Wang
-JUnit test for the DataParser class.
+JUnit test for DataParser; confirms that it properly builds an ArrayList of DayCareProviderModels when a JSONArray 
+is passed to it
+
+9. Class name: YellowCenterTester by Steve Wang
+JUnit test to ensure that Recommender class returns Yellow-rated day care centers (i.e., adequate day care centers, but not 
+the best ones in the city)
+
+10. Class name: RedCenterTester by Steve Wang
+JUnit test to ensure that Recommender class returns Red-rated day care centers (i.e., day care centers with unacceptably high violation rates)
