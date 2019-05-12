@@ -1,5 +1,6 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
@@ -55,7 +56,7 @@ class CentersByTypeTester {
 		centers.add(center6);
 		
 		// test method
-		// there should be 2 centers with the zip code 12345
+		// there should be 3 centers with the type Preschool
 		DayCareGenie dcg = new DayCareGenie(centers);
 		ArrayList<DayCareProviderModel> result = dcg.getDayCaresByChildcareType("Preschool", centers);
 		assertEquals(result.size(), 3);
