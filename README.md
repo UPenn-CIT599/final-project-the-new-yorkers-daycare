@@ -67,3 +67,18 @@ the best ones in the city)
 
 10. Class name: RedCenterTester by Steve Wang
 JUnit test to ensure that Recommender class returns Red-rated day care centers (i.e., day care centers with unacceptably high violation rates)
+
+11. Class name: AssignRatingsTester by Steve Wang
+JUnit test for the assignRatings method in Recommender class
+
+12. Class name: ZipcodeAndDateTester by Steve Wang
+JUnit test for the getDayCaresByZipcode(String, Date) method of the DayCareGenie class.
+
+13. Class name: CompareToTest by Steve Wang
+JUnit test for the compareTo method of the DayCareProviderModel class.
+
+14. Class name: TransChildCareTypeTester by Steve Wang
+JUnit test for the transChildcareType method of the userInput class.
+
+15. Class name: ValidChildCareTester by Steve Wang
+JUnit test for the isValidChildcareType method of the userInput class.
