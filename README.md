@@ -29,11 +29,27 @@ E. Creates a Recommender object to evaluate those day care centers
 F. Reports the results to the user
 G. Asks the user if he or she would like to conduct another search; if yes, then the process repeats from Step C
 
-8. Class name: RecommenderTester by Steve Wang
-Method: Junit test that creates a toy HashMap of DayCareProviderModel objects and uses that to test the assignRatings method of the Recommender class
-
-9. Class name: userInput by Xiaoya H
+8. Class name: userInput by Xiaoya H
 Method: isValidZipcode - to validate the zipcode that user enters
 is validChildAge - to validate the child age that user enters
 getUserInput - to communicate with user to get the valid inputs (zipcode, child age)
 continueSearch - asks user if he or she would like to search again
+
+JUnit Tests
+1. Class name: RecommenderTester by Steve Wang
+Method: Junit test that creates a toy HashMap of DayCareProviderModel objects and uses that to test the assignRatings method of the Recommender class
+
+2. Class name: SorterTester by Steve Wang
+JUnit test for sortByInspectionDate method of Recommender class
+
+3. Class name: CompareTester by Steve Wang
+JUnit test to test the compareAgainstCityAverage method ofthe Recommender class
+
+4. Class name: CentersByZipCodesTester by Steve Wang
+JUnit test for the getDayCaresByZipcode method of the DayCareGenie class.
+
+5. Class name: CentersByTypeTester by Steve Wang
+JUnit test for the getDayCaresByChildcareType method of the DayCareGenie class.
+
+6. Class name: MostRecentInspectionsTester by Steve Wang
+JUnit test for the getMostRecentInspections method of the DayCareGenie class.
